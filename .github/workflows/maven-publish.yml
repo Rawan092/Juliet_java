@@ -30,9 +30,15 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
+        run: mvn sonar:sonar \
+          -Dsonar.projectKey=baralga \
+          -Dsonar.organization=baralga \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=<GENERATED_TOKEN>
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         #run: mvn -B package --file pom.xml
         #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Rawan092_Juliet_java
+        
      
